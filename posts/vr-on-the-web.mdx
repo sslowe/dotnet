@@ -1,0 +1,180 @@
+---
+title: VR on the Web
+subtitle: the making of audiobook.gallery [Part 1]
+summary: October 2023 saw the release, via Psychic Hotline, of one of recycleReality's most technologically ambitious projects to date - audiobook.gallery. In the coming weeks here on our blog, we're going to share some of the key solutions we developed along the way. In this first edition, we'll dive into the particularities of designing a VR experience for the web.
+publishedAt: "2023-12-11"
+---
+<div className="my-6">
+	<img src="/content/vr-on-the-web/gallery.webp" alt="audiobook.gallery on Meta Quest 2" className="w-full" />
+	<p className="text-[#77FFE4] text-sm mt-2 italic text-center">audiobook.gallery experienced on the Meta Quest 2</p>
+</div>
+
+(This post is rehosted from it's original home on the [recycleReality.net blog](https://www.recyclereality.net/blog/vr-on-the-web))
+
+October 2023 saw the release, via Psychic Hotline, of one of recycleReality's most technologically ambitious projects to date: [audiobook.gallery](https://audiobook.gallery/), a VR-first multimedia experience for Sam Gendel & Marcella Cytrynowicz's audiovisual album.
+
+We conceptualized, designed, and developed an immersive gallery "hub" for a series of listening rooms containing individualized audiovisual experiences for each of the 13 tracks and 26 paintings that comprise the album. This virtual re-interpretation seeks to uncover new facets in the work by presenting it in ways unique to the digital medium. The gallery is available online for VR, browser, and as a chaptered, video walkthrough for mobile platforms.
+
+During the course of the six-month development process that preceded the launch, we overcame a myriad of technical hurdles and design challenges related to the deployment needs, interlinked multimedia content, and the pursuant toolchain that was best suited for the project goals. In the coming weeks here on our blog, we're going to share some of the key solutions we developed along the way. In this first edition, we'll dive into the particularities of designing a VR experience for the web.
+
+## Multi-Platform, Multi-Interface, Multimedia: Unity
+
+When it comes to building a multi-platform, user-explorable environment, one rather obvious choice to fill that specification is a game engine. In [our first blog post](/posts/what-i-learned-in-slorking-school-is), I covered my previous experience developing audiovisual experiences in Unity at the [Center for Computer Research in Music and Acoustics](https://ccrma.stanford.edu/), so given that background, we opted to continue working in Unity for this project (prior to the recent [pricing controversy](https://www.theverge.com/23873852/unity-new-pricing-model-news-updates), so we'll have some additional considerations for the next). However, the specific platform and content requirements led me to explore new components throughout the ecosystem, one of which was particularly instrumental in making the release of the project possible at all.
+
+## De-Panther, Atlas of Unity-to-WebXR Exporting
+
+One truism that I've discovered during my career in software thus far is that the size of the set of personally [Relevant XKCDs](https://relevantxkcd.appspot.com/) is perennially expanding. My most recent brush with the phenomenon came in the early stages of the development process for audiobook.gallery.
+
+Our primary focus, per Psychic Hotline's proposal, was shipping the experience for virtual reality. There was also an imperative to make the app as generally available as possible, not just across headset platforms but also across devices. Shipping across multiple platforms is a core advantage of Unity, so we theoretically could have packaged native apps for each device type, but I knew through the second-hand experience of [peers at CCRMA](https://ccrma.stanford.edu/~jjmills/VFT/index.html) about the challenges of getting a release approved on the Quest platform, in particular. Given the large VR audience segment represented by those devices alone, as well as the potential for platform-specific distribution channels more broadly, making the experience web accessible across devices was the best option in our case.
+
+Fortunately for us, Unity has built-in support for deployments in-browser via WebGL. Unfortunately for us, WebGL has no native method for supporting VR device and controller interactions. Luckily, [WebXR](https://immersiveweb.dev/) (formerly WebVR) seeks to provide precisely the extensions needed for the library in a standardized way. Unluckily, the officially supported Unity-to-WebXR export pipeline maintained by Mozilla was abandoned over three years ago at the time of writing. I was starting to notice a pattern.
+
+Our oscillating fortunes ultimately settled on the positive due to the continual work of software developer Oren Weizman, or [De-Panther](https://de-panther.com/). His fork of the [Unity-to-WebXR Export](https://github.com/De-Panther/unity-webxr-export) project made possible our vision for the release plan of audiobook.gallery and deserves to be more widely known and utilized.
+
+<div className="my-6">
+	<a href="https://xkcd.com/2347/" className="block">
+		<img src="/content/vr-on-the-web/xkcd-2347.png" alt="XKCD comic about dependencies" className="w-[50%] mx-auto" />
+	</a>
+	<p className="text-[#77FFE4] text-sm mt-2 italic text-center">The relevant XKCD, albeit at a narrower scope and global scale.</p>
+</div>
+
+This would not be the only instance in which the fate of our project was secured thanks to the work of other passionate developers - another major source of assistance will be the subject of the next post in this series, but there were countless other times when the odd forum post-or-two came to the rescue. This supportive community is a big reason why the Unity platform has been so fun to build for (and why I'm so concerned about the threats it faces).
+
+## Esoteric Environment, Standardized Interface: VRTK
+
+Despite the fact that the WebXR pipeline enabled us to build the project for our target platforms using our web distribution strategy, the actual implementation of the WebXR camera as a Unity object interface made user interaction development a cryptographic puzzle. To help standardize the development process, we utilized [VRTK](https://www.vrtk.io/), which allowed us to map the underlying WebXR Camera Set to a uniform interface that allowed for further interaction development using [Tilia](https://www.vrtk.io/tilia.html).
+
+A good starting reference for these interactions is provided in this [repo from FireDragonGameStudio](https://github.com/FireDragonGameStudio/WebXR-DePanther-VRTK). Here is an example of this interface in action from the spawning system for audiobook.gallery:
+
+```cs
+public void Spawn() {
+
+    ...
+
+    GameObject origin = new GameObject();
+    origin.transform.SetPositionAndRotation(spawn[0], 
+        Quaternion.Euler(spawn[1]));
+    TeleporterFacade teleport = 
+        GameObject.Find("Locomotors.Teleporter.Instant")
+            .GetComponent<TeleporterFacade>();
+    teleport.Teleport(origin);
+
+    ...
+
+}
+```
+
+## A Departing Peculiarity: Unity WebGL Interface Integrations
+
+While most of the content of this post has focused on preliminary technical decisions, one diversion of note from later in the development process - also relating to the specifics of Unity WebGL deployments - is the possibility of web-native interface integrations utilizing Unity's support for [browser scripting interactions](https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html). We used this technique to unify the presentation layer across the web experience by bringing all the controls and interaction modals into our web template with a unified design system.
+
+<div className="my-6">
+	<img src="/content/vr-on-the-web/web-native.png" alt="Web-native modal window" className="w-full" />
+	<p className="text-[#77FFE4] text-sm mt-2 italic text-center">A web-native modal window communicating bi-directionally with the WebGL app</p>
+</div>
+
+The technical implementation of our modal interface consisted of a jslib function and import on the Unity side, and an integration with Unity's messaging system in our web template. We're sharing the code here with the aim of it serving as an illustrative example.
+
+```js title="/Assets/Plugins/jslibs/modal.jslib"
+mergeInto(LibraryManager.library, {
+
+    EngageModal: function () {
+        const event = new Event("engagemodal");
+        window.dispatchEvent(event);
+    },
+
+});
+```
+
+```cs title="/Assets/Scripts/ModalHandler.cs"
+public class ModalHandler : MonoBehaviour
+{
+    [DllImport("__Internal")]
+    private static extern void EngageModal();
+
+    ...
+
+    public void Activate(GameObject trigger)
+    {
+        EngageModal();
+    }
+}
+```
+
+```html title="/index.html"
+...
+
+<body>
+
+    ...
+
+    <div id="exitModal" class="modal" !important>
+        <div class="modal-content">
+            <div class="modal-controls">
+                <h1>Exit listening room?</h1>
+            </div>
+            <div class="exit-modal-button-container">
+                <input class="exit-modal-button" type="submit" value="Confirm" 
+                  id="exitModalConfirm"/>
+                <input class="exit-modal-button" type="submit" value="Cancel" 
+                  id="exitModalCancel" />
+            </div>
+        </div>
+    </div>
+
+    ...
+
+    <script>
+
+    ...
+
+    const exitModal = document.getElementById("exitModal");
+    exitModal.style.display = "none";
+    const exitModalConfirm = document.getElementById('exitModalConfirm');
+    const exitModalCancel = document.getElementById('exitModalCancel');
+
+    ...
+
+
+    const script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+
+        createUnityInstance(canvas, config, (progress) => {
+            progressBarFull.style.width = `${100 * progress}%`;
+        }).then((unityInstance) => {
+            ...
+
+            exitModalCancel.onclick = () => {
+                unityInstance.SendMessage('Modal', 'Cancel');
+                exitModal.style.display = "none";
+            }
+
+            exitModalConfirm.onclick = () => {
+                unityInstance.SendMessage('Modal', 'Confirm');
+                exitModal.style.display = "none";
+            }
+
+            window.addEventListener('engagemodal', () => {
+                exitModal.style.display = "block";
+                exitModal.style.opacity = "1";
+            })
+
+        })
+    }
+
+    document.body.appendChild(script);
+
+    </script>
+
+</body>
+
+...
+```
+
+We hope this first post in our making-of series has been an insightful look at some of the decisions that went into the early stages of developing audiobook.gallery. If you're building a VR project for the web, get in touch - we'd love to see it. And please stay tuned for the next entry:
+
+---
+
+Up next in "_the making of audiobook.gallery_" - A look at our approach to audiovisual correspondence featuring FMOD Studio and our implementation of an envelope follower using its library.
+
