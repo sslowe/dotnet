@@ -1,81 +1,85 @@
-import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import { Link } from '@tanstack/react-router'
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import {
+	createRootRoute,
+	HeadContent,
+	Link,
+	Outlet,
+	Scripts,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { seo } from "@/lib/seo";
-
-import appCss from '../styles.css?url'
-import mdxCss from '../mdx.css?url'
+import mdxCss from "../mdx.css?url";
+import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
 	head: () => ({
 		meta: [
 			{
-				charSet: 'utf-8',
+				charSet: "utf-8",
 			},
 			{
-				name: 'viewport',
-				content: 'width=device-width, initial-scale=1',
+				name: "viewport",
+				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: 'sacramo.net',
-			},
-			{
-				name: 'apple-mobile-web-app-title',
-				content: 'sacramo'
-			},
-			 ...seo({
 				title: "sacramo.net",
-				image: '/og-image.png',
-				description: 'A great place to space your face'
+			},
+			{
+				name: "apple-mobile-web-app-title",
+				content: "sacramo",
+			},
+			...seo({
+				title: "sacramo.net",
+				image: "/og-image.png",
+				description: "A great place to space your face",
 			}),
 		],
 		links: [
 			{
-				rel: 'icon',
-				href: '/favicon-96x96.png',
-				sizes: '96x96',
-				type: 'image/png'
+				rel: "icon",
+				href: "/favicon-96x96.png",
+				sizes: "96x96",
+				type: "image/png",
 			},
 			{
-				rel: 'icon',
-				href: '/favicon.svg',
-				type: 'image/svg+xml'
+				rel: "icon",
+				href: "/favicon.svg",
+				type: "image/svg+xml",
 			},
 			{
-				rel: 'apple-touch-icon',
-				href: 'apple-touch-icon.png',
-				sizes: '180x180'
+				rel: "apple-touch-icon",
+				href: "apple-touch-icon.png",
+				sizes: "180x180",
 			},
 			{
-				rel: 'shortcut icon',
-				href: 'favicon.ico'
+				rel: "shortcut icon",
+				href: "favicon.ico",
 			},
 			{
-				rel: 'stylesheet',
+				rel: "stylesheet",
 				href: appCss,
 			},
 			{
-				rel: 'stylesheet',
+				rel: "stylesheet",
 				href: mdxCss,
 			},
 			{
-				rel: 'preconnect',
-				href: 'https://fonts.googleapis.com',
+				rel: "preconnect",
+				href: "https://fonts.googleapis.com",
 			},
 			{
-				rel: 'preconnect',
-				href: 'https://fonts.gstatic.com',
-				crossOrigin: 'anonymous',
+				rel: "preconnect",
+				href: "https://fonts.gstatic.com",
+				crossOrigin: "anonymous",
 			},
 			{
-				rel: 'stylesheet',
-				href: 'https://fonts.googleapis.com/css2?family=Jersey+25&display=swap',
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css2?family=Jersey+25&display=swap",
 			},
 		],
 	}),
 	shellComponent: RootDocument,
-})
+});
 
 function RootDocument() {
 	return (
@@ -90,7 +94,7 @@ function RootDocument() {
 					<div className="flex gap-6 mb-8">
 						<div className="hidden md:block w-48 flex-shrink-0"></div>
 						<div className="flex-1 text-center md:text-right">
-							<Link to="/" >
+							<Link to="/">
 								<h1 className="inline-block text-[#ECE6E6] text-4xl md:text-5xl font-['Jersey_25'] bg-[#03001B] m-[3px]">
 									sacramo.
 									<span className="text-[#FFE72C]">n</span>
@@ -117,7 +121,11 @@ function RootDocument() {
 											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
 										>
 											Posts
-											<img src="/images/link.png" alt="" className="w-4 h-4 mt-[1px]" />
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
 										</Link>
 									</li>
 									<li>
@@ -126,7 +134,11 @@ function RootDocument() {
 											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
 										>
 											Music
-											<img src="/images/link.png" alt="" className="w-4 h-4 mt-[1px]" />
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
 										</Link>
 									</li>
 									<li>
@@ -135,7 +147,11 @@ function RootDocument() {
 											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
 										>
 											Supchuck
-											<img src="/images/link.png" alt="" className="w-4 h-4 mt-[1px]" />
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
 										</Link>
 									</li>
 									<li>
@@ -144,7 +160,11 @@ function RootDocument() {
 											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
 										>
 											Router
-											<img src="/images/link.png" alt="" className="w-4 h-4 mt-[1px]" />
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
 										</Link>
 									</li>
 									<li>
@@ -153,7 +173,11 @@ function RootDocument() {
 											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
 										>
 											Archive
-											<img src="/images/link.png" alt="" className="w-4 h-4 mt-[1px]" />
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
 										</Link>
 									</li>
 								</ul>
@@ -174,16 +198,8 @@ function RootDocument() {
 										alt="Internet Explorer 3"
 										className="w-full"
 									/>
-									<img
-										src="/images/flash.gif"
-										alt="Flash"
-										className="w-full"
-									/>
-									<img
-										src="/images/y2k.gif"
-										alt="Y2k"
-										className="w-full"
-									/>
+									<img src="/images/flash.gif" alt="Flash" className="w-full" />
+									<img src="/images/y2k.gif" alt="Y2k" className="w-full" />
 									<img
 										src="/images/macspin.gif"
 										alt="Mac Spin"
@@ -202,11 +218,11 @@ function RootDocument() {
 
 				<TanStackDevtools
 					config={{
-						position: 'bottom-right',
+						position: "bottom-right",
 					}}
 					plugins={[
 						{
-							name: 'Tanstack Router',
+							name: "Tanstack Router",
 							render: <TanStackRouterDevtoolsPanel />,
 						},
 					]}
@@ -214,5 +230,5 @@ function RootDocument() {
 				<Scripts />
 			</body>
 		</html>
-	)
+	);
 }

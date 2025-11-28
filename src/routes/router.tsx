@@ -1,16 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { seo } from '@/lib/seo'
+import { createFileRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 
-export const Route = createFileRoute('/router')({ 
+export const Route = createFileRoute("/router")({
 	head: () => ({
 		meta: [
 			...seo({
-				title: 'router | sacramo.net',
+				title: "router | sacramo.net",
 			}),
 		],
 	}),
-	component: Router 
-})
+	component: Router,
+});
 
 function Router() {
 	return (
@@ -25,12 +25,21 @@ function Router() {
 					title="Router"
 				/>
 			</section>
-			<section className='relative text-center w-full mt-2'>
-				<a href='https://router.is' target="_blank" rel="noopener noreferrer" className="text-5xl text-[#FFE72C] font-['Jersey_25'] bg-[#03001B] m-[3px]">
+			<section className="relative text-center w-full mt-2">
+				<a
+					href="https://router.is"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-5xl text-[#FFE72C] font-['Jersey_25'] bg-[#03001B] m-[3px]"
+				>
 					Visit
-					<img src="/images/externallink.png" alt="" className="inline w-8 h-8 ml-2" />
+					<img
+						src="/images/externallink.png"
+						alt=""
+						className="inline w-8 h-8 ml-2"
+					/>
 				</a>
 			</section>
 		</div>
-	)
+	);
 }

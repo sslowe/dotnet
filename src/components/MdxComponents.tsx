@@ -1,5 +1,5 @@
 import { useMDXComponent } from "@content-collections/mdx/react";
-import * as React from "react";
+import type * as React from "react";
 
 const components = {
 	h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -38,13 +38,27 @@ const components = {
 			{...props}
 		/>
 	),
-	a: ({ className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-		<a
-			className={`font-medium text-[#FFE72C] ${className}`}
-			{...props}
-		>
+	a: ({
+		className,
+		...props
+	}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+		<a className={`font-medium text-[#FFE72C] ${className}`} {...props}>
 			{props.children}
-			{props.href?.startsWith('/') ? <img src="/images/link.png" alt="" className="inline w-4 h-4 ml-1 mb-[1px]" /> : props.href?.startsWith('#') ? <></> : <img src="/images/externallink.png" alt="" className="inline w-4 h-4 ml-[2px] mb-[2px]" />}
+			{props.href?.startsWith("/") ? (
+				<img
+					src="/images/link.png"
+					alt=""
+					className="inline w-4 h-4 ml-1 mb-[1px]"
+				/>
+			) : props.href?.startsWith("#") ? (
+				<></>
+			) : (
+				<img
+					src="/images/externallink.png"
+					alt=""
+					className="inline w-4 h-4 ml-[2px] mb-[2px]"
+				/>
+			)}
 		</a>
 	),
 	p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
@@ -54,10 +68,16 @@ const components = {
 		/>
 	),
 	ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-		<ul className={`my-6 ml-6 list-disc text-[#ECE6E6] ${className}`} {...props} />
+		<ul
+			className={`my-6 ml-6 list-disc text-[#ECE6E6] ${className}`}
+			{...props}
+		/>
 	),
 	ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-		<ol className={`my-6 ml-6 list-decimal text-[#ECE6E6] ${className}`} {...props} />
+		<ol
+			className={`my-6 ml-6 list-decimal text-[#ECE6E6] ${className}`}
+			{...props}
+		/>
 	),
 	li: ({ className, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
 		<li className={`mt-2 text-[#ECE6E6] ${className}`} {...props} />
@@ -76,9 +96,15 @@ const components = {
 		alt,
 		...props
 	}: React.ImgHTMLAttributes<HTMLImageElement>) => (
-		<img className={`rounded-md border border-[#77FFE4] ${className}`} alt={alt} {...props} />
+		<img
+			className={`rounded-md border border-[#77FFE4] ${className}`}
+			alt={alt}
+			{...props}
+		/>
 	),
-	hr: ({ ...props }) => <hr className="my-4 md:my-8 border-[#77FFE4]" {...props} />,
+	hr: ({ ...props }) => (
+		<hr className="my-4 md:my-8 border-[#77FFE4]" {...props} />
+	),
 	table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
 		<div className="my-6 w-full overflow-y-auto">
 			<table className={`w-full border-collapse ${className}`} {...props} />

@@ -1,11 +1,10 @@
-import { createFileRoute, Link, redirect } from '@tanstack/react-router'
-
-import { Mdx } from "@/components/MdxComponents"
-import { seo } from "@/lib/seo"
-import { formatDate } from "@/lib/utils"
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { allPosts } from "content-collections";
+import { Mdx } from "@/components/MdxComponents";
+import { seo } from "@/lib/seo";
+import { formatDate } from "@/lib/utils";
 
-export const Route = createFileRoute('/posts/$slug')({
+export const Route = createFileRoute("/posts/$slug")({
 	beforeLoad: () => ({
 		allPosts,
 	}),
@@ -25,13 +24,12 @@ export const Route = createFileRoute('/posts/$slug')({
 			? [
 					...seo({
 						title: `${loaderData?.post.title.toLowerCase()} | sacramo.net`,
-
 					}),
 				]
 			: [],
 	}),
 	component: RouteComponent,
-})
+});
 
 function RouteComponent() {
 	const { post } = Route.useLoaderData();
@@ -64,5 +62,5 @@ function RouteComponent() {
 				</Link>
 			</div>
 		</div>
-	)
+	);
 }

@@ -1,16 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { seo } from '@/lib/seo'
+import { createFileRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 
-export const Route = createFileRoute('/supchuck')({ 
+export const Route = createFileRoute("/supchuck")({
 	head: () => ({
 		meta: [
 			...seo({
-				title: 'supchuck | sacramo.net',
+				title: "supchuck | sacramo.net",
 			}),
 		],
 	}),
-	component: Supchuck 
-})
+	component: Supchuck,
+});
 
 function Supchuck() {
 	return (
@@ -25,12 +25,21 @@ function Supchuck() {
 					title="Supchuck"
 				/>
 			</section>
-			<section className='relative text-center w-full mt-2'>
-				<a href='https://supchuck.net' target="_blank" rel="noopener noreferrer" className="text-5xl text-[#FFE72C] font-['Jersey_25'] bg-[#03001B] m-[3px]">
+			<section className="relative text-center w-full mt-2">
+				<a
+					href="https://supchuck.net"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-5xl text-[#FFE72C] font-['Jersey_25'] bg-[#03001B] m-[3px]"
+				>
 					Visit
-					<img src="/images/externallink.png" alt="" className="inline w-8 h-8 ml-2" />
+					<img
+						src="/images/externallink.png"
+						alt=""
+						className="inline w-8 h-8 ml-2"
+					/>
 				</a>
 			</section>
 		</div>
-	)
+	);
 }
