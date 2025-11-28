@@ -3,5 +3,11 @@
   "name": "sacramo",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "routes": [
+    {
+      "pattern": "sacramo.net",
+      "custom_domain": true
+    }
+  ]
 }
