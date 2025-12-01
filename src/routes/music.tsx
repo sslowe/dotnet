@@ -121,7 +121,7 @@ function Music() {
 							</tr>
 							<tr>
 								<td className="border border-[#77FFE4] pl-1">
-									Resurection Machine / 003
+									Resurrection Machine / 003
 								</td>
 								<td className="border border-[#77FFE4]">
 									<a
@@ -195,7 +195,7 @@ function Music() {
 										/>
 									</a>
 								</td>
-								<td className="border border-[#77FFE4] pl-1">Compilation</td>
+								<td className="border border-[#77FFE4] pl-1">Compilation, Collab. Cameron Champion</td>
 							</tr>
 						</tbody>
 					</table>
