@@ -78,7 +78,17 @@ function App() {
 					<img src="/images/new.gif" alt="" className="inline h-5 ml-2" />
 				</h2>
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
-					<div className="border-l-2 border-[#ED4848] pl-3">
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
+							<span className="text-[#ECE6E6]">06/24/2026</span> - The journey of a thousand miles <a className="text-[#FFE72C]" href="/posts/document-everything">begins with a single step</a>.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
+							<span className="text-[#ECE6E6]">01/28/2026</span> - Oops, all <a className="text-[#FFE72C]" href="/posts/document-everything">Hollow Knight</a>.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
 							<span className="text-[#ECE6E6]">11/19/2025</span> - 3, 2, 1...
 							launch!{" "}
