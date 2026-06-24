@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -80,12 +80,12 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">06/24/2026</span> - The journey of a thousand miles <a className="text-[#FFE72C]" href="/posts/document-everything">begins with a single step</a>.
+							<span className="text-[#ECE6E6]">06/24/2026</span> - The journey of a thousand miles <Link className="text-[#FFE72C]" to="/posts/document-everything">begins with a single step</Link>.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">01/28/2026</span> - Oops, all <a className="text-[#FFE72C]" href="/posts/document-everything">Hollow Knight</a>.
+							<span className="text-[#ECE6E6]">01/28/2026</span> - Oops, all <Link className="text-[#FFE72C]" to="/posts/i-should-go-there-and-do-that">Hollow Knight</Link>.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
