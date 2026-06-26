@@ -15,8 +15,6 @@ export function seo({
 		{ name: "keywords", content: keywords },
 		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: description },
-		{ name: "twitter:creator", content: "@ahmedaalliy" },
-		{ name: "twitter:site", content: "@ahmedaalliy" },
 		{ property: "og:type", content: "website" },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },

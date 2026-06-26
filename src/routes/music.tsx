@@ -6,6 +6,7 @@ export const Route = createFileRoute("/music")({
 		meta: [
 			...seo({
 				title: "music | sacramo.net",
+				description: "A collection of performances and recordings."
 			}),
 		],
 	}),
@@ -195,7 +196,9 @@ function Music() {
 										/>
 									</a>
 								</td>
-								<td className="border border-[#77FFE4] pl-1">Compilation, Collab. Cameron Champion</td>
+								<td className="border border-[#77FFE4] pl-1">
+									Compilation, Collab. Cameron Champion
+								</td>
 							</tr>
 						</tbody>
 					</table>

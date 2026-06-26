@@ -22,16 +22,12 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "sacramo.net",
-			},
-			{
 				name: "apple-mobile-web-app-title",
 				content: "sacramo",
 			},
 			...seo({
 				title: "sacramo.net",
 				image: "/og-image.png",
-				description: "A great place to space your face",
 			}),
 		],
 		links: [
@@ -75,6 +71,12 @@ export const Route = createRootRoute({
 			{
 				rel: "stylesheet",
 				href: "https://fonts.googleapis.com/css2?family=Jersey+25&display=swap",
+			},
+			{
+				rel: "alternate",
+				type: "application/rss+xml",
+				title: "sacramo.net RSS Feed",
+				href: "/rss.xml",
 			},
 		],
 	}),
@@ -179,6 +181,19 @@ function RootDocument() {
 												className="w-4 h-4 mt-[1px]"
 											/>
 										</Link>
+									</li>
+									<li>
+										<a
+											href="/rss.xml"
+											className="text-[#ECE6E6] hover:text-[#FFE72C] transition-colors flex items-center gap-2"
+										>
+											RSS
+											<img
+												src="/images/link.png"
+												alt=""
+												className="w-4 h-4 mt-[1px]"
+											/>
+										</a>
 									</li>
 								</ul>
 							</nav>

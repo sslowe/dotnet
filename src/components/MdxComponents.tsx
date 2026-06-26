@@ -50,9 +50,7 @@ const components = {
 					alt=""
 					className="inline w-4 h-4 ml-1 mb-[1px]"
 				/>
-			) : props.href?.startsWith("#") ? (
-				<></>
-			) : (
+			) : props.href?.startsWith("#") ? null : (
 				<img
 					src="/images/externallink.png"
 					alt=""

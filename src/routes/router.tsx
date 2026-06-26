@@ -6,6 +6,7 @@ export const Route = createFileRoute("/router")({
 		meta: [
 			...seo({
 				title: "router | sacramo.net",
+				description: "Because my work portfolio needs another iFrame."
 			}),
 		],
 	}),

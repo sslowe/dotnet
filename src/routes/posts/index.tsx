@@ -8,6 +8,7 @@ export const Route = createFileRoute("/posts/")({
 		meta: [
 			...seo({
 				title: "blogramo | sacramo.net",
+				description: "Musings and misadventures"
 			}),
 		],
 	}),
@@ -17,11 +18,11 @@ export const Route = createFileRoute("/posts/")({
 function RouteComponent() {
 	return (
 		<div className="space-y-6">
-			{sortedPosts.map((post, i) => (
+			{sortedPosts.map((post) => (
 				<Link
 					to="/posts/$slug"
 					params={{ slug: post._meta.path }}
-					key={i}
+					key={post._meta.path}
 					className="block"
 				>
 					<section className="relative bg-[#03001B]/80 border-2 border-[#77FFE4] pt-6 pb-6 px-6 rounded hover:border-[#FFE72C] transition-colors cursor-pointer">

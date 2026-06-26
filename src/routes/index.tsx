@@ -1,6 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/")({
+	head: () => ({
+		meta: [
+			...seo({
+				title: "sacramo.net",
+				description: "Making noise one way or another."
+			}),
+		],
+	}),
+	component: App,
+});
 
 function App() {
 	return (
@@ -80,12 +91,39 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">06/24/2026</span> - The journey of a thousand miles <Link className="text-[#FFE72C]" to="/posts/document-everything">begins with a single step</Link>.
+							<span className="text-[#ECE6E6]">06/24/2026</span> - The journey
+							of a thousand miles{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "document-everything" }}
+								className="text-[#FFE72C]"
+							>
+								begins with a single step
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+							/>
+							.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">01/28/2026</span> - Oops, all <Link className="text-[#FFE72C]" to="/posts/i-should-go-there-and-do-that">Hollow Knight</Link>.
+							<span className="text-[#ECE6E6]">01/28/2026</span> - Oops, all{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "i-should-go-there-and-do-that" }}
+								className="text-[#FFE72C]"
+							>
+								Hollow Knight
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+							/>
+							.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">

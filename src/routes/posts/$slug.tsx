@@ -24,6 +24,7 @@ export const Route = createFileRoute("/posts/$slug")({
 			? [
 					...seo({
 						title: `${loaderData?.post.title.toLowerCase()} | sacramo.net`,
+						description: `${loaderData?.post.summary}`
 					}),
 				]
 			: [],
