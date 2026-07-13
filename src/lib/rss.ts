@@ -1,7 +1,7 @@
 import type { Post } from "content-collections";
 
 const feedTitle = "sacramo.net";
-const feedDescription = "A great place to space your face";
+const feedDescription = "Making noise one way or another";
 
 type RssImage = {
 	alt?: string;

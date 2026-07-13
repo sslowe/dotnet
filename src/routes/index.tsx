@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 		meta: [
 			...seo({
 				title: "sacramo.net",
-				description: "Making noise one way or another."
+				description: "Making noise one way or another"
 			}),
 		],
 	}),
