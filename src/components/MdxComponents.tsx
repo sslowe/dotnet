@@ -54,7 +54,7 @@ const components = {
 				<img
 					src="/images/externallink.png"
 					alt=""
-					className="inline w-4 h-4 ml-[2px] mb-[2px]"
+					className="inline w-4 h-4 ml-[2px] mb-[1px]"
 				/>
 			)}
 		</a>
