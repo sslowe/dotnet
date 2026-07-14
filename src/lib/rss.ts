@@ -17,6 +17,21 @@ function escapeXml(value: string): string {
 		.replaceAll("'", "&apos;");
 }
 
+function escapeHtml(value: string): string {
+	return value
+		.replaceAll("&", "&amp;")
+		.replaceAll("<", "&lt;")
+		.replaceAll(">", "&gt;");
+}
+
+function escapeHtmlAttribute(value: string): string {
+	return escapeHtml(value).replaceAll('"', "&quot;");
+}
+
+function wrapCdata(value: string): string {
+	return `<![CDATA[${value.replaceAll("]]>", "]]]]><![CDATA[>")}]]>`;
+}
+
 function formatRssDate(value: string): string {
 	return new Date(value).toUTCString();
 }
@@ -65,14 +80,102 @@ function extractImages(content: string, siteUrl: string): Array<RssImage> {
 	});
 }
 
-function cleanMdxForFeed(content: string): string {
-	return content
-		.replace(/<img\b[^>]*\/?>/gi, "")
+function removeImageBlocks(content: string): string {
+	let stripped = content;
+	let previous: string;
+
+	do {
+		previous = stripped;
+		stripped = stripped.replace(
+			/<div\b[^>]*>[\s\S]*?<img\b[^>]*src=["']\/content\/[^"']*["'][\s\S]*?<\/div>/gi,
+			"",
+		);
+	} while (stripped !== previous);
+
+	return stripped;
+}
+
+function stripUnsupportedHtml(content: string): string {
+	return removeImageBlocks(content)
 		.replace(/<iframe\b[\s\S]*?<\/iframe>/gi, "")
-		.replace(/<\/?[a-z][^>]*>/gi, "")
+		.replace(/<img\b[^>]*\/?>/gi, "")
+		.replace(/<br\s*\/?>/gi, "\n")
+		.replace(/<\/p>/gi, "\n\n")
+		.replace(/<\/div>/gi, "\n\n")
+		.replace(/<\/?[a-z][^>]*>/gi, "");
+}
+
+function formatInlineMarkdownWithoutLinks(value: string): string {
+	return escapeHtml(value)
+		.replace(/~~([^~]+)~~/g, "<del>$1</del>")
+		.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+		.replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, "<em>$1</em>")
+		.replace(/(?<!_)_([^_\n]+)_(?!_)/g, "<em>$1</em>");
+}
+
+function formatInlineMarkdown(value: string, siteUrl: string): string {
+	const links: Array<string> = [];
+	const withLinkPlaceholders = value.replace(
+		/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g,
+		(_, text, href) => {
+			const index = links.length;
+			const safeHref = escapeHtmlAttribute(
+				href.startsWith("#") ? href : absoluteUrl(href, siteUrl),
+			);
+			const safeText = formatInlineMarkdownWithoutLinks(text);
+
+			links.push(`<a href="${safeHref}">${safeText}</a>`);
+
+			return `%%RSSLINK${index}%%`;
+		},
+	);
+
+	return formatInlineMarkdownWithoutLinks(withLinkPlaceholders).replace(
+		/%%RSSLINK(\d+)%%/g,
+		(_, index) => links[Number(index)] ?? "",
+	);
+}
+
+function formatParagraph(block: string, siteUrl: string): string {
+	const text = block
+		.split("\n")
+		.map((line) => line.trim())
+		.join(" ")
+		.trim();
+
+	return `<p>${formatInlineMarkdown(text, siteUrl)}</p>`;
+}
+
+function mdxToFeedHtml(content: string, siteUrl: string): string {
+	const cleaned = stripUnsupportedHtml(content)
 		.replace(/^\s*---[\s\S]*?---\s*/, "")
+		.replace(/\r\n?/g, "\n")
 		.replace(/\n{3,}/g, "\n\n")
 		.trim();
+
+	if (!cleaned) {
+		return "";
+	}
+
+	return cleaned
+		.split(/\n{2,}/)
+		.map((block) => {
+			const trimmed = block.trim();
+			const heading = trimmed.match(/^(#{2,6})\s+(.+)$/);
+
+			if (heading) {
+				const level = heading[1].length;
+
+				return `<h${level}>${formatInlineMarkdown(heading[2], siteUrl)}</h${level}>`;
+			}
+
+			if (trimmed === "---") {
+				return "<hr />";
+			}
+
+			return formatParagraph(trimmed, siteUrl);
+		})
+		.join("\n");
 }
 
 export function createRssFeed(posts: Array<Post>, siteUrl: string): string {
@@ -88,7 +191,7 @@ export function createRssFeed(posts: Array<Post>, siteUrl: string): string {
 			const postUrl = `${normalizedSiteUrl}/posts/${post._meta.path}`;
 			const title = escapeXml(post.title);
 			const description = escapeXml(post.summary);
-			const content = escapeXml(cleanMdxForFeed(post.content));
+			const content = wrapCdata(mdxToFeedHtml(post.content, normalizedSiteUrl));
 			const mediaItems = extractImages(post.content, normalizedSiteUrl)
 				.map((image) => {
 					const type = getImageType(image.url);
