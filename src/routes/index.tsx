@@ -40,7 +40,7 @@ function App() {
 						<img
 							src="/images/externallink.png"
 							alt=""
-							className="inline w-4 h-4 ml-[2px] mb-[2px]"
+							className="inline w-4 h-4 ml-[2px] mb-[1px]"
 						/>{" "}
 						for Pinegrove and a{" "}
 						<a
@@ -54,7 +54,7 @@ function App() {
 						<img
 							src="/images/externallink.png"
 							alt=""
-							className="inline w-4 h-4 ml-[2px] mb-[2px]"
+							className="inline w-4 h-4 ml-[2px] mb-[1px]"
 						/>{" "}
 						for Sam Gendel and Marcella Cytrynowicz.
 					</p>
@@ -91,6 +91,24 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
+							<span className="text-[#ECE6E6]">07/15/2026</span> - Wow, a{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "apply to SPC" }}
+								className="text-[#FFE72C]"
+							>
+								second post
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
+							/>
+							{" "}in as many days.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
 							<span className="text-[#ECE6E6]">07/14/2026</span> - The blogramo is joining{" "}
 							<Link
 								to="/posts/$slug"
@@ -102,7 +120,7 @@ function App() {
 							<img
 								src="/images/link.png"
 								alt=""
-								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
 							/>
 							.
 						</p>
@@ -120,7 +138,7 @@ function App() {
 							<img
 								src="/images/link.png"
 								alt=""
-								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
 							/>
 							.
 						</p>
@@ -139,7 +157,7 @@ function App() {
 							<img
 								src="/images/link.png"
 								alt=""
-								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
 							/>
 							.
 						</p>
@@ -157,7 +175,7 @@ function App() {
 							<img
 								src="/images/link.png"
 								alt=""
-								className="inline w-3 h-3 ml-[2px] mb-[1px]"
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
 							/>
 							.
 						</p>

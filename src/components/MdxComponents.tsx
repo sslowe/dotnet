@@ -48,7 +48,7 @@ const components = {
 				<img
 					src="/images/link.png"
 					alt=""
-					className="inline w-4 h-4 ml-1 mb-[1px]"
+					className="inline w-4 h-4 ml-1 mb-[3px]"
 				/>
 			) : props.href?.startsWith("#") ? null : (
 				<img
