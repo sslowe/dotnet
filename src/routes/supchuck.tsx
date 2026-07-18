@@ -6,7 +6,8 @@ export const Route = createFileRoute("/supchuck")({
 		meta: [
 			...seo({
 				title: "supchuck | sacramo.net",
-				description: "Irreverent and unpleasant to look at, just like the internet I remember"
+				description:
+					"Irreverent and unpleasant to look at, just like the internet I remember",
 			}),
 		],
 	}),

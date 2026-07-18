@@ -1,7 +1,6 @@
-import { useMDXComponent } from "@content-collections/mdx/react";
 import type * as React from "react";
 
-const components = {
+export const mdxComponents = {
 	h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
 		<h1
 			className={`mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-[#ECE6E6] ${className}`}
@@ -147,15 +146,17 @@ const components = {
 };
 
 interface MdxProps {
-	code: string;
+	html: string;
 }
 
-export function Mdx({ code }: MdxProps) {
-	const Component = useMDXComponent(code);
-
+export function Mdx({ html }: MdxProps) {
 	return (
-		<div className="mdx">
-			<Component components={components} />
-		</div>
+		<div
+			className="mdx"
+			// biome-ignore lint/security/noDangerouslySetInnerHtml: HTML is generated at build time from local MDX files.
+			dangerouslySetInnerHTML={{
+				__html: html,
+			}}
+		/>
 	);
 }

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/posts/")({
 		meta: [
 			...seo({
 				title: "blogramo | sacramo.net",
-				description: "Musings and misadventures"
+				description: "Musings and misadventures",
 			}),
 		],
 	}),

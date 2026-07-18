@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 		meta: [
 			...seo({
 				title: "sacramo.net",
-				description: "Making noise one way or another"
+				description: "Making noise one way or another",
 			}),
 		],
 	}),
@@ -103,13 +103,14 @@ function App() {
 								src="/images/link.png"
 								alt=""
 								className="inline w-3 h-3 ml-[2px] mb-[2px]"
-							/>
-							{" "}in as many days.
+							/>{" "}
+							in as many days.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">07/14/2026</span> - The blogramo is joining{" "}
+							<span className="text-[#ECE6E6]">07/14/2026</span> - The blogramo
+							is joining{" "}
 							<Link
 								to="/posts/$slug"
 								params={{ slug: "build-an-audience" }}
@@ -127,7 +128,8 @@ function App() {
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">07/01/2026</span> - A space to mourn the{" "}
+							<span className="text-[#ECE6E6]">07/01/2026</span> - A space to
+							mourn the{" "}
 							<Link
 								to="/posts/$slug"
 								params={{ slug: "design-a-satirical-site" }}

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupchuckRouteImport } from './routes/supchuck'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as RouterRouteImport } from './routes/router'
 import { Route as MusicRouteImport } from './routes/music'
@@ -21,6 +22,11 @@ import { Route as PostsSlugRouteImport } from './routes/posts/$slug'
 const SupchuckRoute = SupchuckRouteImport.update({
   id: '/supchuck',
   path: '/supchuck',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RssDotxmlRoute = RssDotxmlRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/music': typeof MusicRoute
   '/router': typeof RouterRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supchuck': typeof SupchuckRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts': typeof PostsIndexRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/music': typeof MusicRoute
   '/router': typeof RouterRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supchuck': typeof SupchuckRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts': typeof PostsIndexRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/music': typeof MusicRoute
   '/router': typeof RouterRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supchuck': typeof SupchuckRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts/': typeof PostsIndexRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/router'
     | '/rss.xml'
+    | '/sitemap.xml'
     | '/supchuck'
     | '/posts/$slug'
     | '/posts'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/router'
     | '/rss.xml'
+    | '/sitemap.xml'
     | '/supchuck'
     | '/posts/$slug'
     | '/posts'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/router'
     | '/rss.xml'
+    | '/sitemap.xml'
     | '/supchuck'
     | '/posts/$slug'
     | '/posts/'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   MusicRoute: typeof MusicRoute
   RouterRoute: typeof RouterRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupchuckRoute: typeof SupchuckRoute
   PostsSlugRoute: typeof PostsSlugRoute
   PostsIndexRoute: typeof PostsIndexRoute
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/supchuck'
       fullPath: '/supchuck'
       preLoaderRoute: typeof SupchuckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rss.xml': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   MusicRoute: MusicRoute,
   RouterRoute: RouterRoute,
   RssDotxmlRoute: RssDotxmlRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupchuckRoute: SupchuckRoute,
   PostsSlugRoute: PostsSlugRoute,
   PostsIndexRoute: PostsIndexRoute,

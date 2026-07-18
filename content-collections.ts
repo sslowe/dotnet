@@ -1,5 +1,8 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
+import { MDXContent } from "@content-collections/mdx/react";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { z } from "zod";
 import {
   transformerMetaHighlight,
@@ -10,6 +13,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { mdxComponents } from "./src/components/MdxComponents";
  
 const posts = defineCollection({
   name: "posts",
@@ -23,7 +27,7 @@ const posts = defineCollection({
     content: z.string(),
   }),
   transform: async (document, context) => {
-    const body = await compileMDX(context, document, {
+    const compiledMdx = await compileMDX(context, document, {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
         rehypeSlug,
@@ -64,6 +68,12 @@ const posts = defineCollection({
         ],
       ],
     });
+    const body = renderToStaticMarkup(
+      createElement(MDXContent, {
+        code: compiledMdx,
+        components: mdxComponents,
+      }),
+    );
     return {
       ...document,
       body,

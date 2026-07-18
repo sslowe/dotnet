@@ -28,7 +28,7 @@ export const Route = createRootRoute({
 			...seo({
 				title: "sacramo.net",
 				image: "/og-image.png",
-				description: "Making noise one way or another"
+				description: "Making noise one way or another",
 			}),
 		],
 		links: [

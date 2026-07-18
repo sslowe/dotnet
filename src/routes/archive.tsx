@@ -6,7 +6,7 @@ export const Route = createFileRoute("/archive")({
 		meta: [
 			...seo({
 				title: "archive | sacramo.net",
-				description: "Old things I'm incapable of Marie Kondo-ing"
+				description: "Old things I'm incapable of Marie Kondo-ing",
 			}),
 		],
 	}),

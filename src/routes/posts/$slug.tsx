@@ -24,7 +24,7 @@ export const Route = createFileRoute("/posts/$slug")({
 			? [
 					...seo({
 						title: `${loaderData?.post.title.toLowerCase()} | sacramo.net`,
-						description: `${loaderData?.post.summary}`
+						description: `${loaderData?.post.summary}`,
 					}),
 				]
 			: [],
@@ -50,7 +50,7 @@ function RouteComponent() {
 							{post.subtitle}
 						</p>
 					)}
-					<Mdx code={post.body} />
+					<Mdx html={post.body} />
 				</div>
 			</section>
 			<div className="text-center">
