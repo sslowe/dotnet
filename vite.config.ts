@@ -7,19 +7,25 @@ import tailwindcss from '@tailwindcss/vite'
 import contentCollections from "@content-collections/vite";
 import { cloudflare } from '@cloudflare/vite-plugin'
 
-const config = defineConfig({
-  plugins: [
-    devtools(),
-    cloudflare({ viteEnvironment: { name: 'ssr' } }),
-    contentCollections(),
-    // this is the plugin that enables path aliases
-    viteTsConfigPaths({
-      projects: ['./tsconfig.json'],
-    }),
-    tailwindcss(),
-    tanstackStart(),
-    viteReact(),
-  ],
+const config = defineConfig(({ mode }) => {
+  const isTest = mode === 'test'
+
+  return {
+    plugins: [
+      !isTest && devtools(),
+      !isTest && cloudflare({ viteEnvironment: { name: 'ssr' } }),
+      contentCollections({
+        isEnabled: () => !isTest,
+      }),
+      // this is the plugin that enables path aliases
+      viteTsConfigPaths({
+        projects: ['./tsconfig.json'],
+      }),
+      tailwindcss(),
+      tanstackStart(),
+      viteReact(),
+    ],
+  }
 })
 
 export default config

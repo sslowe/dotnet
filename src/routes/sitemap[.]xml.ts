@@ -10,6 +10,11 @@ const staticPaths = [
 	"/archive",
 ];
 
+type SitemapUrl = {
+	loc: string;
+	lastmod?: string;
+};
+
 function escapeXml(value: string): string {
 	return value
 		.replace(/&/g, "&amp;")
@@ -21,7 +26,7 @@ function escapeXml(value: string): string {
 
 function createSitemap(siteUrl: string): string {
 	const normalizedSiteUrl = siteUrl.replace(/\/$/, "");
-	const urls = [
+	const urls: Array<SitemapUrl> = [
 		...staticPaths.map((path) => ({
 			loc: `${normalizedSiteUrl}${path}`,
 		})),
