@@ -13,8 +13,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { mdxComponents } from "./src/components/MdxComponents";
- 
+import { staticMdxComponents } from "./src/components/MdxComponents";
+
 const posts = defineCollection({
   name: "posts",
   directory: "posts",
@@ -71,16 +71,17 @@ const posts = defineCollection({
     const body = renderToStaticMarkup(
       createElement(MDXContent, {
         code: compiledMdx,
-        components: mdxComponents,
+        components: staticMdxComponents,
       }),
     );
     return {
       ...document,
       body,
+      mdxCode: compiledMdx,
     };
   },
 });
- 
+
 export default defineConfig({
   collections: [posts],
 });

@@ -5,10 +5,7 @@ import { seo } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 export const Route = createFileRoute("/posts/$slug")({
-	beforeLoad: () => ({
-		allPosts,
-	}),
-	loader: async ({ params, context: { allPosts } }) => {
+	loader: async ({ params }) => {
 		const slug = params.slug;
 		const post = allPosts.find((post) => post._meta.path === slug);
 		if (!post) {
@@ -50,7 +47,7 @@ function RouteComponent() {
 							{post.subtitle}
 						</p>
 					)}
-					<Mdx html={post.body} />
+					<Mdx html={post.body} code={post.mdxCode} />
 				</div>
 			</section>
 			<div className="text-center">

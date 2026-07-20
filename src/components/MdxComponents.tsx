@@ -1,6 +1,165 @@
+import { MDXContent } from "@content-collections/mdx/react";
+import { ClientOnly, Link } from "@tanstack/react-router";
 import type * as React from "react";
 
-export const mdxComponents = {
+type StaticRoutePath =
+	| "/"
+	| "/archive"
+	| "/music"
+	| "/posts"
+	| "/router"
+	| "/supchuck";
+
+type InternalRoute =
+	| {
+			kind: "post";
+			slug: string;
+			hash?: string;
+	  }
+	| {
+			kind: "static";
+			path: StaticRoutePath;
+			hash?: string;
+	  };
+
+const staticRoutePaths = new Set<StaticRoutePath>([
+	"/",
+	"/archive",
+	"/music",
+	"/posts",
+	"/router",
+	"/supchuck",
+]);
+
+function getInternalRoute(href?: string): InternalRoute | undefined {
+	if (
+		!href ||
+		href.startsWith("#") ||
+		href.startsWith("//") ||
+		/^[a-z][a-z\d+.-]*:/i.test(href)
+	) {
+		return undefined;
+	}
+
+	const [pathWithSearch, hash] = href.split("#");
+
+	if (!pathWithSearch.startsWith("/") || pathWithSearch.includes("?")) {
+		return undefined;
+	}
+
+	const path = pathWithSearch === "/" ? "/" : pathWithSearch.replace(/\/$/, "");
+	const postMatch = path.match(/^\/posts\/([^/]+)$/);
+
+	if (postMatch) {
+		return {
+			kind: "post",
+			slug: decodeURIComponent(postMatch[1]),
+			hash,
+		};
+	}
+
+	if (staticRoutePaths.has(path as StaticRoutePath)) {
+		return {
+			kind: "static",
+			path: path as StaticRoutePath,
+			hash,
+		};
+	}
+
+	return undefined;
+}
+
+function LinkIcon({ href }: { href?: string }) {
+	if (!href || href.startsWith("#")) {
+		return null;
+	}
+
+	if (href.startsWith("/")) {
+		return (
+			<img
+				src="/images/link.png"
+				alt=""
+				className="inline w-4 h-4 ml-1 mb-[3px]"
+			/>
+		);
+	}
+
+	return (
+		<img
+			src="/images/externallink.png"
+			alt=""
+			className="inline w-4 h-4 ml-[2px] mb-[1px]"
+		/>
+	);
+}
+
+function StaticMdxAnchor({
+	className,
+	href,
+	children,
+	...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+	const linkClassName = className
+		? `font-medium text-[#FFE72C] ${className}`
+		: "font-medium text-[#FFE72C]";
+
+	return (
+		<a className={linkClassName} href={href} {...props}>
+			{children}
+			<LinkIcon href={href} />
+		</a>
+	);
+}
+
+function MdxAnchor({
+	className,
+	href,
+	children,
+	...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+	const internalRoute = getInternalRoute(href);
+	const linkClassName = className
+		? `font-medium text-[#FFE72C] ${className}`
+		: "font-medium text-[#FFE72C]";
+
+	if (internalRoute?.kind === "post") {
+		return (
+			<Link
+				to="/posts/$slug"
+				params={{ slug: internalRoute.slug }}
+				hash={internalRoute.hash}
+				className={linkClassName}
+				{...props}
+			>
+				{children}
+				<LinkIcon href={href} />
+			</Link>
+		);
+	}
+
+	if (internalRoute?.kind === "static") {
+		return (
+			<Link
+				to={internalRoute.path}
+				hash={internalRoute.hash}
+				className={linkClassName}
+				{...props}
+			>
+				{children}
+				<LinkIcon href={href} />
+			</Link>
+		);
+	}
+
+	return (
+		<a className={linkClassName} href={href} {...props}>
+			{children}
+			<LinkIcon href={href} />
+		</a>
+	);
+}
+
+const sharedMdxComponents = {
 	h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
 		<h1
 			className={`mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-[#ECE6E6] ${className}`}
@@ -36,27 +195,6 @@ export const mdxComponents = {
 			className={`mt-8 scroll-m-20 text-base font-semibold tracking-tight text-[#ECE6E6] ${className}`}
 			{...props}
 		/>
-	),
-	a: ({
-		className,
-		...props
-	}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-		<a className={`font-medium text-[#FFE72C] ${className}`} {...props}>
-			{props.children}
-			{props.href?.startsWith("/") ? (
-				<img
-					src="/images/link.png"
-					alt=""
-					className="inline w-4 h-4 ml-1 mb-[3px]"
-				/>
-			) : props.href?.startsWith("#") ? null : (
-				<img
-					src="/images/externallink.png"
-					alt=""
-					className="inline w-4 h-4 ml-[2px] mb-[1px]"
-				/>
-			)}
-		</a>
 	),
 	p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
 		<p
@@ -145,11 +283,22 @@ export const mdxComponents = {
 	),
 };
 
+export const mdxComponents = {
+	...sharedMdxComponents,
+	a: MdxAnchor,
+};
+
+export const staticMdxComponents = {
+	...sharedMdxComponents,
+	a: StaticMdxAnchor,
+};
+
 interface MdxProps {
 	html: string;
+	code: string;
 }
 
-export function Mdx({ html }: MdxProps) {
+function StaticMdxHtml({ html }: Pick<MdxProps, "html">) {
 	return (
 		<div
 			className="mdx"
@@ -158,5 +307,15 @@ export function Mdx({ html }: MdxProps) {
 				__html: html,
 			}}
 		/>
+	);
+}
+
+export function Mdx({ html, code }: MdxProps) {
+	return (
+		<ClientOnly fallback={<StaticMdxHtml html={html} />}>
+			<div className="mdx">
+				<MDXContent code={code} components={mdxComponents} />
+			</div>
+		</ClientOnly>
 	);
 }
