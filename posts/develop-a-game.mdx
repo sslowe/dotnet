@@ -1,0 +1,49 @@
+---
+title: "29 Before 29 #6: Develop a Game"
+subtitle: more fun than fighting over bin space
+summary: I keep intending to do one thing and then kind of doing that thing but also kind of doing a different thing. I thought I'd be making a video game, but - surprise - it's a card game instead.
+publishedAt: "2026-07-28"
+---
+This week marks the start of August, and that means one thing in particular here on the blogramo: I need to pick up the pace on this list. If you'd like to catch up on my Endeavor to squeeze as much as possible into the waning months of my 28th year, start back at the [beginning of the series](/posts/document-everything). 
+
+[In my last post](/posts/share-a-poem), I commented on the strange sublimation via which an ostensibly analog task became a digital one. This time around, I was faced with the inverse scenario. I added the task “Develop a game” onto the list thinking that I would use it as an opportunity to put into practice the game engine skills I've developed over the years in Unity (and more recently, Godot), both in my [time at Stanford](/posts/what-i-learned-in-slorking-school-is) and through my [client work with Router](/posts/vr-on-the-web). 
+
+I briefly entertained the notion of attempting to release a game on mobile, but if my past experience with App Store/Google Play distribution taught me anything, it's that I would wind up spending more time on administrative tasks than development, all for the ultimate reward of entering a saturated ecosystem dominated by precisely tuned user acquisition formulae. In other words: all work, no play, and we don't want Jack becoming a dull boy.
+
+I spent many an hour playing browser games in school computer labs (and, let's be honest, college lecture halls). I had never really pondered what the process of getting a game on a site like [CoolMathGames](https://developers.coolmathgames.com/) consisted of, however, and found myself intrigued by the thought of taking a stab at getting published on a site I spent a lot of formative time on. While I was exploring the site, I was saddened by the discovery that someone had beaten me to the punch on the idea I had been tossing around, so I made the call to head in a different direction rather than go back to the drawing board for a fresh concept on a time crunch. We'll have to put a pin in my CoolMath dreams, for now at least.
+
+Part of the reason that I was willing to pivot so readily is that I had another idea in my back pocket that had almost made the cut for the list in its own right. It just hadn't yet taken a solid enough form, but that would soon change.
+
+## Games and Cards and Cards and Games
+
+When you write about yourself on the internet, you make certain concessions that parts of your identity and experience will be made public for the world to see. For example, I am more than happy to admit that I am a lifelong lover of games of all stripes. My inclination towards certain styles of video games has already been [discussed at length](/posts/i-should-go-there-and-do-that). I also have a longstanding fondness for board games, owed in no small part to my grandmothers (their willingness to bend the rules in my favor certainly didn't hurt). Don't Break the Ice with Memaw and Chinese Checkers with Meme are the two earliest I can recall.  Countless others, like Payday and Cranium [Whoonu](https://en.wikipedia.org/wiki/Cranium_Whoonu), received as many plays as my parents could reasonably stand. It's a love that has continued well into my adulthood, albeit constrained by apartment size. I would rather not calculate the amount of rent I have paid for the square footage occupied by Gloomhaven alone.
+
+Still, there are other parts of myself I'd prefer to keep out of the public record. Unfortunately, the rest of this wouldn't make sense without the following disclosure: I spend far too many of my waking hours thinking about and playing *Magic: The Gathering*.
+
+<div className="my-6">
+	<img src="/content/develop-a-game/magic-meme.jpeg" alt="Screencap adapted from SpongeBob depicting Patrick Star holding a Magic card" className="w-[60%] mx-auto" />
+	<p className="text-[#77FFE4] text-sm mt-2 italic text-center">If you ever find yourself making memes to communicate with family members about a subject, you might have a problem.</p>
+</div>
+
+There are several ways this will be relevant to the story at hand, so bear with me. First, a story. As a non-Catholic who attended a Catholic elementary and middle school, I am no stranger to seemingly arbitrary denouncements and prohibitions (though I had the benefit of receiving them with a certain level of detachment). Pokemon, Harry Potter, shoulder-length hair. Some were in response to the broader media landscape (the 2007 movie adaptation of *The Golden Compass* is a prime example). Some were hand-me-downs from my brother's peer group, like the ban on hair dye. Yes, this is a thinly-veiled ploy to balance my admission of playing *Magic* with the fact that my brother had frosted tips. 
+
+Somehow, *Magic* escaped their ire, at least initially, perhaps because the only person I ever saw bring them to school was my classmate who first introduced me to the game. I couldn't tell you a thing about the two decks he had, other than the one he played with was clearly the better of the two and the pure elation I felt the first time I managed to eke out a victory with the spare. Shockingly, it was my parents who brought down the hammer in one of their rare moments of arbitrary censorship (despite what [my blog](/posts/design-a-satirical-site) might have you believe. Sorry again, ~~mother~~ editor). When the school admin finally caught on, too, that was the end of my short-lived *Magic* career until I returned to it last year.
+
+One of the core gameplay elements in *Magic* is the concept of “instant speed interaction,” that is, the ability to respond to the other player during their turn. To support this play pattern, *Magic* utilizes a structure called “the stack.” For those of you with any experience with data structures in computer science, this is exactly the stack that you're familiar with: a last-in, first-out queue. In *Magic*, this looks something like the following: the active player plays a card, or spell, the opponent has a chance to respond with a spell of their own, the active player can then respond with another spell, and so on. When both players are unable, or decide not, to respond, the spells are resolved in last-in, first-out order.
+
+The fact that a concept that you'd find in any core computer science curriculum is a central component of *Magic* is fascinating, though not necessarily surprising considering its creator, Richard Garfield, is a math PhD. It got me thinking about what *other* data structures could lend themselves to interesting patterns of play, and I found myself toying with the idea of [priority queues](https://en.wikipedia.org/wiki/Priority_queue) (and their close cousin [heaps](https://en.wikipedia.org/wiki/Heap_(data_structure))). Rather than last-in, first-out, priority queues are sorted in order of highest priority, with heaps representing a particular implementation of a priority queue.
+
+In talking through these various data structures and the ways in which they could be gamified, my wife had the wonderful insight that all this chatter of priority queues was reminiscent of airplane boarding. Isn't it interesting how you can spend so much time on an idea and all it takes is one small observation to make it all click into place?
+
+## Priority Boarding
+
+<div className="my-6">
+	<img src="/content/develop-a-game/IMG_2939.jpg" alt="Photo of playtest cards for the game Priority Boarding consisting of paper slips inserted into sleeves on top of Magic cards." className="w-full" />
+	<p className="text-[#77FFE4] text-sm mt-2 italic text-center">You can tell it's an action shot because of the Diet Coke.</p>
+</div>
+
+The concept of priority boarding is relatively simple: players take turns playing cards that represent passengers boarding a plane while their opponent attempts to block them as they both attempt to balance resources and payoffs. Cards have an associated priority used for determining the success of boarders or blockers and effects that trigger when passengers successfully board. I'm still early in playtesting the game, but so far, it's been hitting all the marks I wanted it to as far as play experience goes. 
+
+The design behind card effects and interactions is another way the play patterns of *Priority Boarding* are inspired by *Magic*, specifically a fan-made variant called *Forgetful Fish*, also know as DanDan, where players share a deck of 80 cards rather than each play their own. For those familiar with *Magic* but unfamiliar with DanDan, the excellent Youtuber Rhystic Study has a [video on the topic](https://www.youtube.com/watch?v=Otdgj8fBQxc) if you'd like to learn more. If you've never played *Magic* before, it will likely come across as a bizarre sub-game of an already inscrutable rule system, but what it boils down to is an intricate strategy game where players vie for knowledge and control of the top of the deck, which is precisely the part I tried to emulate with *Priority Boarding*. I don't want to fully tip my hand on the game just yet because I want to keep iterating on the core concept, and who knows, maybe even attempt to flesh it out into a fully polished product. <span className="text-[#77FFE4] text-sm">[oooh, foreshadowing.]</span>
+
+Well, I didn't intend for this to be the longest post in the series thus far, but I guess deep, dark confessions will do that to you. I mean it when I say I'm picking up the pace, so I'll be back soon with more.
