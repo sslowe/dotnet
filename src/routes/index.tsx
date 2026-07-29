@@ -91,7 +91,7 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
-							<span className="text-[#ECE6E6]">07/28/2026</span> - Subjecting the internet
+							<span className="text-[#ECE6E6]">07/29/2026</span> - Subjecting the internet
 							to my{" "}
 							<Link
 								to="/posts/$slug"
