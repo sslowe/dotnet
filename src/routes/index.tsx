@@ -91,6 +91,25 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
+							<span className="text-[#ECE6E6]">08/01/2026</span> - The Ministry of Silly
+							Walks just got{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "engineer-an-ai-system" }}
+								className="text-[#FFE72C]"
+							>
+								a new member
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
+							/>
+							.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
 							<span className="text-[#ECE6E6]">07/29/2026</span> - Subjecting the internet
 							to my{" "}
 							<Link
