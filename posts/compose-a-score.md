@@ -4,3 +4,4 @@ subtitle: melodies fit for ambling
 summary: 
 publishedAt: "2026-08-07"
 ---
+Guess who’s back? Back again? And back in [the studio](/posts/set-up-my-studio) so soon. 
