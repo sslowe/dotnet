@@ -164,7 +164,7 @@ function Music() {
 								<td className="border border-[#77FFE4] pl-1">Slowe Byrne</td>
 								<td className="border border-[#77FFE4]">
 									<a
-										href="https://open.spotify.com/album/3BCCIn0IcqjLbYFvkgGNIX?si=qZqE0q18TOOW_BFtKy7aEQ"
+										href="https://sacramonet.bandcamp.com/album/slowe-byrne"
 										target="_blank"
 										rel="noopener noreferrer"
 									>

@@ -105,7 +105,7 @@ function App() {
 								alt=""
 								className="inline w-3 h-3 ml-[2px] mb-[2px]"
 							/>
-							!
+							.
 						</p>
 					</div>
 					<div className="border-l-2 border-[#77FFE4] pl-3">
