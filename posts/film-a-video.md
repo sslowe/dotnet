@@ -1,8 +1,8 @@
 ---
-title: "29 Before 29 #11: Film a Video"
+title: "29 Before 29 #13: Film a Video"
 subtitle: zen and the art of gear demos
 summary: If a video gets posted on YouTube and no blogger is around to write about it, did it make a sound?
-publishedAt: "2026-08-09"
+publishedAt: "2026-08-23"
 ---
 We’ve officially reached a fever pitch in the Endeavor. *Two* posts in a day, wow. I left you all on a cliffhanger in [my last post](/posts/practice-my-soldering) and I needed to make it right. 
 
