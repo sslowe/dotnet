@@ -40,6 +40,24 @@ function Music() {
 						</thead>
 						<tbody>
 							<tr>
+								<td className="border border-[#77FFE4] pl-1">Music for Transparency</td>
+								<td className="border border-[#77FFE4]">
+									<a
+										href="https://sacramonet.bandcamp.com/track/music-for-transparency"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<img
+											src="/images/externallink.png"
+											alt=""
+											className="w-4 h-4 m-3"
+										/>
+									</a>
+								</td>
+								<td className="border border-[#77FFE4] pl-1">
+								</td>
+							</tr>
+							<tr>
 								<td className="border border-[#77FFE4] pl-1">
 									grow a garden, rowdy
 								</td>
