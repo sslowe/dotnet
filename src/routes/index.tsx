@@ -91,6 +91,25 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
+							<span className="text-[#ECE6E6]">09/15/2026</span> - Debuting
+							a new sacramo{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "pilot-a-swas" }}
+								className="text-[#FFE72C]"
+							>
+								venture
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
+							/>
+							.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
 							<span className="text-[#ECE6E6]">09/11/2026</span> - A case
 							for{" "}
 							<Link
