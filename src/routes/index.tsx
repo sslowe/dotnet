@@ -91,6 +91,25 @@ function App() {
 				<div className="text-[#ECE6E6] space-y-3 mt-2">
 					<div className="border-l-2 border-[#77FFE4] pl-3">
 						<p>
+							<span className="text-[#ECE6E6]">09/23/2026</span> - Appending
+							one difficult task{" "}
+							<Link
+								to="/posts/$slug"
+								params={{ slug: "storyboard-a-novel" }}
+								className="text-[#FFE72C]"
+							>
+								on another
+							</Link>
+							<img
+								src="/images/link.png"
+								alt=""
+								className="inline w-3 h-3 ml-[2px] mb-[2px]"
+							/>
+							.
+						</p>
+					</div>
+					<div className="border-l-2 border-[#77FFE4] pl-3">
+						<p>
 							<span className="text-[#ECE6E6]">09/19/2026</span> - Vying
 							for a spot on{" "}
 							<Link
